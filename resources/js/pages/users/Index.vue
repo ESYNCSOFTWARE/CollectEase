@@ -6,13 +6,13 @@
     <JTable v-model:columns="state.columns" :fetch-url="route('users.fetch')"
         :refresh-table-data="state.refreshTableData">
         <template #header>
-            <Link v-if="hasPermission('CREATE_USERS')" :href="route('users.create')">
+            <Link v-if="hasPermission('CREATE_USERS')" title="Add user" :href="route('users.create')">
             <PrimaryButton> Add New User </PrimaryButton>
             </Link>
         </template>
 
         <template #profile_image="data">
-            <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-bold">
+            <div title="Update user status" class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-bold">
           {{ getInitials(data.item.name) }}
         </div>
         </template>
@@ -24,16 +24,16 @@
         <template #action="data">
             <div class="flex items-center">
                 <Link class="mr-3 flex items-center" v-if="hasPermission('UPDATE_USERS')"
-                    :href="route('users.edit', data.item.id)">
+                    :href="route('users.edit', data.item.id)" title="Update user">
                 <EditIcon />
                 </Link>
 
-                <span class="mr-3 flex cursor-pointer items-center" v-if="hasPermission('DELETE_USERS')"
+                <span class="mr-3 flex cursor-pointer items-center" title="Delete user" v-if="hasPermission('DELETE_USERS')"
                     @click="deleteUser(data.item.id, data.item.name)">
                     <DeleteIcon />
                 </span>
 
-                <Link class="mr-3 flex cursor-pointer items-center" v-if="hasPermission('CREATE_USERS')"
+                <Link class="mr-3 flex cursor-pointer items-center" title="Assign role" v-if="hasPermission('CREATE_USERS')"
                     :href="route('users.create.role.permissions', data.item.id)">
                 <Settings2 />
                 </Link>
