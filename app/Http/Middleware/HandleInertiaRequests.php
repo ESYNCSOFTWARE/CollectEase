@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
 use Inertia\Middleware;
+use Override;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -17,6 +20,7 @@ class HandleInertiaRequests extends Middleware
     /**
      * Determine the current asset version.
      */
+    #[Override]
     public function version(Request $request): ?string
     {
         return parent::version($request);
@@ -27,13 +31,21 @@ class HandleInertiaRequests extends Middleware
      *
      * @return array<string, mixed>
      */
+    #[Override]
     public function share(Request $request): array
     {
-        return [
-            ...parent::share($request),
+
+        return array_merge(parent::share($request), [
             'auth' => [
                 'user' => $request->user(),
+                'permissions' => $request->user()
+                ? $request->user()->roles()->with('permissions')->get()->pluck('permissions.*')->flatten()->unique()->pluck('name')->toArray()
+                : [],
             ],
-        ];
+            'flash' => [
+                'success' => $request->session()->get('success'),
+                'error' => $request->session()->get('error'),
+            ],
+        ]);
     }
 }
