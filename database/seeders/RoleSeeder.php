@@ -15,7 +15,7 @@ class RoleSeeder extends Seeder
     {
         $data = [
             ['name' => 'Super Admin', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['name' => 'Manager', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['name' => 'Agent', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
         ];
 
         Role::insert($data);

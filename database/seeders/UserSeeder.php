@@ -15,19 +15,21 @@ class UserSeeder extends Seeder
     {
         $data = [
             [
-                'name' => 'Admin',
+                'name' => 'Super dmin',
                 'email' => 'admin@gmail.com',
                 'password' => bcrypt('admin@321'),
                 'status' => 1,
                 'type_id' => 1, // Super Admin
+                'dashboard_component' => 'SuperAdminDashboard',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
                 'email_verified_at' => Carbon::now(),
             ],
             [
-                'name' => 'Manager',
-                'email' => 'testmanager@gmail.com',
-                'password' => bcrypt('admin@321'),
+                'name' => 'Agent',
+                'email' => 'agent@gmail.com',
+                'password' => bcrypt('agent@321'),
+                'dashboard_component' => 'AgentDashboard',
                 'status' => 1,
                 'type_id' => 2, // HR Manager
                 'created_at' => Carbon::now(),

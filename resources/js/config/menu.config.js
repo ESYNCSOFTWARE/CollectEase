@@ -39,25 +39,15 @@ const menuItems = [
         key: "assignment-management",
         icon: NotebookTabs,
         route: "assignment-management",
-        permission: "VIEW_SETUP",
+        permission: "VIEW_ASSIGNMENT_MANAGEMENT",
         subMenu: [
             {
                 name: "All Cases",
                 key: "cases",
                 route: "users.index",
-                permission: "VIEW_USERS",
+                permission: "VIEW_CASES",
                 icon: HandCoins,
             },
-        ],
-    },
-      {
-        name: "VC Dial",
-        key: "vc-dial",
-        icon: PhoneCall,
-        route: "vc-dial",
-        permission: "VIEW_SETUP",
-        subMenu: [
-            
         ],
     },
     {

@@ -9,6 +9,7 @@ use App\Domains\User\DataObjects\AssignRolePermissionData;
 use App\Domains\User\DataObjects\UserData;
 use App\Domains\User\Resources\UserListResource;
 use App\Domains\User\Services\UserService;
+use App\Domains\User\Enums\DashboardTemplateType;
 use App\Domains\User\UserQueries;
 use App\Http\Controllers\Controller;
 use Exception;
@@ -48,8 +49,9 @@ class UserController extends Controller
 
     public function create(): Response
     {
-
-        return Inertia::render('users/Manage');
+        return Inertia::render('users/Manage',[
+            'templates' => DashboardTemplateType::formattedForSelection(),
+        ]);
     }
 
     public function store(UserData $userData): RedirectResponse
@@ -63,6 +65,7 @@ class UserController extends Controller
     {
         return Inertia::render('users/Manage', [
             'user' => $this->userQueries->getById($userId),
+             'templates' => DashboardTemplateType::formattedForSelection(),
         ]);
     }
 

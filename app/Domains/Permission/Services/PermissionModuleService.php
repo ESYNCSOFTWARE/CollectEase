@@ -35,6 +35,19 @@ class PermissionModuleService
                     PermissionList::VIEW->value,
                 ],
             ],
+            'assignment_management' => [
+                'permissions' => [
+                    PermissionList::VIEW->value,
+                ],
+            ],
+            'cases' => [
+                'permissions' => [
+                    PermissionList::VIEW->value,
+                    PermissionList::CREATE->value,
+                    PermissionList::UPDATE->value,
+                    PermissionList::DELETE->value,
+                ],
+            ],
             'users' => [
                 'permissions' => [
                     PermissionList::VIEW->value,
@@ -105,8 +118,8 @@ class PermissionModuleService
 
         foreach ($permissions as $permission) {
             $data = [
-                'name' => $permission.'_'.Str::upper(Str::replace(' ', '_', $moduleName)),
-                'display_name' => Str::title($permission).' '.$moduleName,
+                'name' => $permission . '_' . Str::upper(Str::replace(' ', '_', $moduleName)),
+                'display_name' => Str::title($permission) . ' ' . $moduleName,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ];
