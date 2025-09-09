@@ -3,8 +3,6 @@
 
   <form @submit.prevent="saveUser()">
     <div class="p-5 bg-white rounded-2xl">
-   
-
       <div
         class="flex flex-col items-center border-b border-gray-200 bg-gradient-to-r from-blue-50 to-indigo-50 px-6 py-4 sm:flex-row sm:p-6 rounded-t-2xl"
       >
@@ -67,6 +65,20 @@
               :required="true"
             />
           </div>
+            <div>
+                        <FormSelectBox
+                            v-model:selected-record="
+                                userForm.dashboard_component
+                            "
+                            :records="templates"
+                            input-label="Select template"
+                            label="name"
+                            value-field="id"
+                            placeholder="Select Template"
+                            validation-field-name="dashboard_component"
+                            :required="true"
+                        />
+                    </div>
         </div>
 
         <div class="mt-5">
@@ -89,7 +101,9 @@ import FormInput from "@commonComponents/FormInput.vue";
 import CancelButton from "@commonComponents/CancelButton.vue";
 import SubmitButton from "@commonComponents/SubmitButton.vue";
 import SecondaryButton from "@commonComponents/SecondaryButton.vue";
-import { UserRoundPlus } from 'lucide-vue-next';
+import { UserRoundPlus } from "lucide-vue-next";
+import FormSelectBox from "@commonComponents/FormSelectBox.vue";
+import { template } from "lodash";
 
 const props = defineProps({
   user: {
@@ -104,11 +118,16 @@ const props = defineProps({
     type: Array,
     default: null,
   },
+  templates: {
+    type: Object,
+    default: null,
+  },
 });
 
 const userForm = useForm({
   name: null,
   email: null,
+  dashboard_component:null
 });
 
 const saveUser = () => {

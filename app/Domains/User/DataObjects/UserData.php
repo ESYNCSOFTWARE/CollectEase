@@ -14,6 +14,7 @@ class UserData extends Data
         public string $name,
         public string $email,
         public ?string $password,
+        public string $dashboard_component,
     ) {}
 
     public static function rules(Request $request): array
@@ -33,6 +34,11 @@ class UserData extends Data
                 Rule::unique('users', 'email')->ignore($userId),
             ],
             'name' => [
+                'required',
+                'string',
+                'max:255',
+            ],
+              'dashboard_component' => [
                 'required',
                 'string',
                 'max:255',
