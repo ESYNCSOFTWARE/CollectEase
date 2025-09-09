@@ -28,7 +28,7 @@ onMounted(() => {
             ],
             datasets: [
                 {
-                    label: "Amount Collected ($)",
+                    label: "Amount Collected (RM)",
                     data: [18500, 22200, 19400, 27800, 23600, 32500, 29800, 36700, 39500, 42350, 38200, 41100],
                     borderColor: "rgb(59, 130, 246)",
                     backgroundColor: "rgba(59, 130, 246, 0.1)",
@@ -118,7 +118,7 @@ onMounted(() => {
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-sm font-medium text-gray-500">Total Outstanding Debt</p>
-                        <p class="text-2xl font-bold text-gray-900 mt-1">$245,680</p>
+                        <p class="text-2xl font-bold text-gray-900 mt-1">RM245,680</p>
                         <p class="text-xs text-red-600 font-medium mt-2">
                             <span>+8.3% from last month</span>
                         </p>
@@ -136,7 +136,7 @@ onMounted(() => {
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-sm font-medium text-gray-500">Collected This Month</p>
-                        <p class="text-2xl font-bold text-gray-900 mt-1">$42,350</p>
+                        <p class="text-2xl font-bold text-gray-900 mt-1">RM42,350</p>
                         <p class="text-xs text-green-600 font-medium mt-2">
                             <span>+15.2% from last month</span>
                         </p>
@@ -233,7 +233,7 @@ onMounted(() => {
                         <tr>
                             <td class="px-6 py-4 whitespace-nowrap">#ACC-7829</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">John D. Smith</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$2,499</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">RM2,499</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">42</td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <span class="px-2 inline-flex text-xs font-semibold rounded-full bg-red-100 text-red-800">

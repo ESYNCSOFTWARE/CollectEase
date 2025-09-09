@@ -2,13 +2,12 @@ import {
     Boxes,
     House,
     List,
-    Settings,
     UserCog,
     Users,
     EyeOff,
-    ClipboardPlus,
-    BadgeQuestionMark,
-    BookText
+    NotebookTabs,
+    HandCoins,
+    PhoneCall
 } from "lucide-vue-next";
 
 const menuItems = [
@@ -19,7 +18,7 @@ const menuItems = [
         route: "dashboard",
         permission: "VIEW_DASHBOARD",
     },
-    {
+        {
         name: "Setup",
         key: "setup",
         icon: UserCog,
@@ -33,6 +32,32 @@ const menuItems = [
                 permission: "VIEW_USERS",
                 icon: Users,
             },
+        ],
+    },
+    {
+        name: "Assignment Management",
+        key: "assignment-management",
+        icon: NotebookTabs,
+        route: "assignment-management",
+        permission: "VIEW_SETUP",
+        subMenu: [
+            {
+                name: "All Cases",
+                key: "cases",
+                route: "users.index",
+                permission: "VIEW_USERS",
+                icon: HandCoins,
+            },
+        ],
+    },
+      {
+        name: "VC Dial",
+        key: "vc-dial",
+        icon: PhoneCall,
+        route: "vc-dial",
+        permission: "VIEW_SETUP",
+        subMenu: [
+            
         ],
     },
     {
