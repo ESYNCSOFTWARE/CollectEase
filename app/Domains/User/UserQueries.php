@@ -13,17 +13,16 @@ class UserQueries
     public function listQuery(array $filterData): LengthAwarePaginator
     {
         return User::query()
-            ->select('id', 'name', 'status', 'email')
-            ->when($filterData['search_text'], function ($query) use ($filterData): void {
-                $query->where(function ($query) use ($filterData): void {
-                    $query->where(['name'], 'LIKE', '%'.$filterData['search_text'].'%');
-                });
-            })
-            ->when($filterData['sort_by'], function ($query) use ($filterData): void {
-                $query->orderBy($filterData['sort_by'], $filterData['sort_direction']);
-            }, function ($query): void {
-                $query->orderBy('id', 'desc');
-            })->paginate($filterData['per_page']);
+        ->select('id', 'name', 'status', 'email')
+        ->when(!empty($filterData['search_text']), function ($query) use ($filterData) {
+            $query->where('name', 'LIKE', '%'.$filterData['search_text'].'%');
+        })
+        ->when(!empty($filterData['sort_by']), function ($query) use ($filterData) {
+            $query->orderBy($filterData['sort_by'], $filterData['sort_direction'] ?? 'asc');
+        }, function ($query) {
+            $query->orderBy('id', 'desc');
+        })
+        ->paginate($filterData['per_page']);
     }
 
     public function addNew(UserData $userData): User
