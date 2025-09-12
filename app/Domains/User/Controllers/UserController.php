@@ -7,9 +7,9 @@ namespace App\Domains\User\Controllers;
 use App\Domains\Role\RoleQueries;
 use App\Domains\User\DataObjects\AssignRolePermissionData;
 use App\Domains\User\DataObjects\UserData;
+use App\Domains\User\Enums\DashBoardTemplate;
 use App\Domains\User\Resources\UserListResource;
 use App\Domains\User\Services\UserService;
-use App\Domains\User\Enums\DashboardTemplateType;
 use App\Domains\User\UserQueries;
 use App\Http\Controllers\Controller;
 use Exception;
@@ -44,13 +44,16 @@ class UserController extends Controller
 
     public function index()
     {
-        return Inertia::render('users/Index');
+        return Inertia::render(
+            'users/Index',
+        );
     }
 
     public function create(): Response
     {
-        return Inertia::render('users/Manage',[
-            'templates' => DashboardTemplateType::formattedForSelection(),
+
+        return Inertia::render('users/Manage',   [
+            'templates' => DashBoardTemplate::formattedForSelection(),
         ]);
     }
 
@@ -65,7 +68,7 @@ class UserController extends Controller
     {
         return Inertia::render('users/Manage', [
             'user' => $this->userQueries->getById($userId),
-             'templates' => DashboardTemplateType::formattedForSelection(),
+            'templates' => DashBoardTemplate::formattedForSelection(),
         ]);
     }
 

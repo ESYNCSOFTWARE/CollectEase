@@ -1,0 +1,131 @@
+<div class="w-full max-w-full px-2 sm:px-4">
+  <div
+    class="intro-y col-span-12 mt-5 overflow-x-auto bg-gray-50 rounded-xl border border-gray-200 shadow-md ring-1 ring-gray-100"
+  >
+    <!-- Header: Filters + Search + Slot -->
+    <div
+      class="intro-y bg-white px-4 py-4 sm:px-5 sm:py-5 ring-1 ring-gray-100"
+    >
+      <div
+        class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between"
+      >
+        <!-- Per Page Select -->
+        <div class="w-full md:w-auto">
+          <select
+            class="w-full md:w-20 rounded-xl border border-gray-300 bg-white py-2.5 pl-3.5 pr-10 text-sm font-medium text-gray-800 shadow-xs focus:outline-none focus:ring-4 focus:border-primary-600 focus:ring-primary-600/30"
+            :value="state.perPage"
+            @input="updatePerPage"
+          >
+            <option
+              v-for="perPageRecordLimit in state.perPageRecordLimits"
+              :key="'per-page-record-limit-' + perPageRecordLimit"
+              :value="perPageRecordLimit"
+            >
+              {{ perPageRecordLimit }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Search -->
+        <div class="flex-1 md:max-w-md w-full">
+          <div class="relative">
+            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5">
+              <Search class="h-4.5 w-4.5 text-gray-500" />
+            </div>
+            <input
+              type="text"
+              placeholder="Search records..."
+              class="w-full rounded-xl border border-gray-300 bg-white py-2.5 pl-12 pr-5 text-sm text-gray-800 shadow-xs focus:outline-none focus:ring-4 focus:border-primary-600 focus:ring-primary-600/30 placeholder:text-gray-500"
+              @input="updateSearchText"
+            />
+          </div>
+        </div>
+
+        <!-- Slot Content -->
+        <div class="w-full md:w-auto md:ml-auto">
+          <div class="flex flex-wrap items-center justify-end gap-2 sm:gap-4">
+            <slot name="header" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <div class="overflow-x-auto">
+      <table class="w-full min-w-[600px] table-auto">
+        <thead class="bg-gray-50/80 backdrop-blur-sm">
+          <tr>
+            <th
+              v-for="(column, index) in filterColumns"
+              :key="'header-' + column.key"
+              :class="getHeaderClass(column, index) + ' px-4 py-3 text-left text-sm font-semibold text-gray-800'"
+            >
+              <div
+                :class="column.sortable ? 'flex items-center justify-between cursor-pointer hover:text-primary-700' : ''"
+                @click="column.sortable ? sortRecords(column) : ''"
+              >
+                <span>{{ prepareColumnLabel(column) }}</span>
+                <div v-if="column.sortable">
+                  <ChevronUp
+                    v-if="state.sortDirection === 'asc' && column.key === state.sortBy"
+                    class="h-4.5 w-4.5"
+                  />
+                  <ChevronDown
+                    v-else
+                    class="h-4.5 w-4.5"
+                    :class="{'text-gray-500': column.key !== state.sortBy}"
+                  />
+                </div>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200/60 bg-white">
+          <template v-if="state.isDataFetching">
+            <tr v-for="n in state.perPage" :key="'loading-table-content-' + n">
+              <td :colspan="columns.length" class="px-4 py-4">
+                <div class="h-6 animate-pulse rounded-lg bg-gradient-to-r from-gray-100 to-gray-200"></div>
+              </td>
+            </tr>
+          </template>
+          <template v-else>
+            <tr
+              v-for="(record, index) in state.records"
+              :key="'record-' + record.id"
+              :class="getTrClass(record) + ' transition-colors duration-300 hover:bg-gray-50/70'"
+            >
+              <td
+                v-for="(column, columnIndex) in filterColumns"
+                :key="'body-' + column.key"
+                :class="getBodyClass(column, columnIndex) + ' px-4 py-4 text-sm text-gray-800 break-words'"
+              >
+                <slot
+                  v-if="!column.hidden"
+                  :name="`${column.key}`"
+                  :item="record"
+                  :index="state.currentPage === 1 ? index : index + state.perPage * (state.currentPage - 1)"
+                >
+                  {{ record[column.key] }}
+                </slot>
+              </td>
+            </tr>
+          </template>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Pagination -->
+  <div class="intro-y col-span-12 mt-5 flex flex-col items-center justify-between space-y-3 sm:flex-row sm:space-y-0">
+    <JPagination
+      :current-page="state.currentPage"
+      :per-page="state.perPage"
+      :total-records="state.totalRecords"
+      @update:current-page="changeCurrentPage"
+      class="rounded-xl bg-white px-5 py-3 shadow-md ring-1 ring-gray-100 w-full sm:w-auto"
+    />
+    <div class="text-sm text-gray-700">
+      Showing {{ getFromRecordNumber() }} to {{ getToRecordNumber() }} of {{ state.totalRecords }} results
+    </div>
+  </div>
+</div>

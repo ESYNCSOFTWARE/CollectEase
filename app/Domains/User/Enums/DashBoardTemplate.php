@@ -6,12 +6,10 @@ namespace App\Domains\User\Enums;
 
 use App\Domains\User\Traits\PrepareEnumDataMethods;
 
-enum DashboardTemplateType: string
+enum DashBoardTemplate: string
 {
     use PrepareEnumDataMethods;
 
-    case SUPER_ADMIN = 'SuperAdminDashboard';
-    case AGENT = 'AgentDashboard';
     case DEFAULT = 'DefaultDashboard';
 
 }

@@ -14,7 +14,7 @@ class UserData extends Data
         public string $name,
         public string $email,
         public ?string $password,
-        public string $dashboard_component,
+        public ?string $dashboard_component,
     ) {}
 
     public static function rules(Request $request): array
@@ -38,7 +38,7 @@ class UserData extends Data
                 'string',
                 'max:255',
             ],
-              'dashboard_component' => [
+            'dashboard_component' => [
                 'required',
                 'string',
                 'max:255',

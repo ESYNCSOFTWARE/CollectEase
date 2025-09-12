@@ -4,7 +4,7 @@
         :type="type"
         :disabled="state.isDisabled"
         :content="title"
-        class="focus:ring-primary bg-primary border-primary inline-flex w-24 cursor-pointer items-center justify-center rounded-md  px-3 py-2 font-medium text-white shadow-sm transition duration-200 focus:ring-4 focus:ring-opacity-20 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-70 [&:hover:not(:disabled)]:border-opacity-90 [&:hover:not(:disabled)]:bg-opacity-90 [&:not(button)]:text-center"
+        class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-700 text-white transition-all duration-300 hover:shadow-lg hover:from-blue-700 hover:to-indigo-800 focus:ring-primary bg-primary border-primary inline-flex w-24 cursor-pointer items-center justify-center font-medium shadow-sm focus:ring-4 focus:ring-opacity-20 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-70 [&:hover:not(:disabled)]:border-opacity-90 [&:hover:not(:disabled)]:bg-opacity-90 [&:not(button)]:text-center"
     >
         {{ text }}
     </Tippy>
