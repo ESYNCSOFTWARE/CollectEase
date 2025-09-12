@@ -30,6 +30,11 @@ class PermissionModuleService
                     PermissionList::VIEW->value,
                 ],
             ],
+            'assignment_management' => [
+                'permissions' => [
+                    PermissionList::VIEW->value,
+                ],
+            ],
             'reports' => [
                 'permissions' => [
                     PermissionList::VIEW->value,
@@ -85,23 +90,15 @@ class PermissionModuleService
                     PermissionList::DELETE->value,
                 ],
             ],
-            'statuses' => [
-                'permissions' => [
-                    PermissionList::VIEW->value,
-                    PermissionList::CREATE->value,
-                    PermissionList::UPDATE->value,
-                    PermissionList::DELETE->value,
-                ],
-            ],
-            'configs' => [
-                'permissions' => [
-                    PermissionList::VIEW->value,
-                    PermissionList::CREATE->value,
-                    PermissionList::UPDATE->value,
-                    PermissionList::DELETE->value,
-                ],
-            ],
-             'currencies' => [
+            // 'configs' => [
+            //     'permissions' => [
+            //         PermissionList::VIEW->value,
+            //         PermissionList::CREATE->value,
+            //         PermissionList::UPDATE->value,
+            //         PermissionList::DELETE->value,
+            //     ],
+            // ],
+            'clients' => [
                 'permissions' => [
                     PermissionList::VIEW->value,
                     PermissionList::CREATE->value,

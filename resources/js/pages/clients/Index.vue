@@ -1,0 +1,156 @@
+<template>
+  <Head title="Clients" />
+
+  <JTable
+    v-model:columns="state.columns"
+    :fetch-url="route('clients.fetch')"
+    :refresh-table-data="state.refreshTableData"
+  >
+    <template #header>
+      <Link v-if="hasPermission('CREATE_CLIENTS')" :href="route('clients.create')">
+        <PrimaryButton> Add New Client </PrimaryButton>
+      </Link>
+    </template>
+
+    <template #status="data">
+      <TableStatus
+        :status="data.item.status"
+        @update:status="updateStatus(data.item.id)"
+      />
+    </template>
+
+    <template #action="data">
+      <div class="flex items-center">
+        <Link
+          class="mr-3 flex items-center"
+          v-if="hasPermission('UPDATE_CLIENTS')"
+          :href="route('clients.edit', data.item.id)"
+        >
+          <EditIcon />
+        </Link>
+
+        <span
+          class="mr-3 flex cursor-pointer items-center"
+          v-if="hasPermission('DELETE_CLIENTS')"
+          @click="deleteUser(data.item.id, data.item.name)"
+        >
+          <DeleteIcon />
+        </span>
+      </div>
+    </template>
+  </JTable>
+</template>
+<script setup>
+import { Head } from "@inertiajs/vue3";
+import JTable from "@commonComponents/JTable.vue";
+import PrimaryButton from "@commonComponents/PrimaryButton.vue";
+import DeleteIcon from "@svg/DeleteIcon.vue";
+import EditIcon from "@svg/EditIcon.vue";
+import { Settings2 } from "lucide-vue-next";
+import { router } from "@inertiajs/vue3";
+import { confirmDialogBox, showErrorNotification } from "@commonServices/notifier";
+import TableStatus from "@commonComponents/TableStatus.vue";
+import { reactive } from "vue";
+
+const props = defineProps({
+  auth: {
+    type: Object,
+    default: null,
+  },
+});
+
+const state = reactive({
+  displayUserPermissionModal: false,
+  userId: null,
+  columns: [
+    {
+      key: "action",
+      headerClass: "w-32 bg-primary text-white",
+      bodyClass: "w-32 bg-gray-200 z-50",
+    },
+    {
+      key: "status",
+      sortable: true,
+      isDisplay: true,
+    },
+    {
+      key: "name",
+      sortable: false,
+      isDisplay: true,
+    },
+    {
+      key: "code",
+      sortable: true,
+      isDisplay: true,
+    },
+    {
+      key: "email",
+      sortable: true,
+      isDisplay: true,
+    },
+    {
+      key: "phone",
+      sortable: true,
+      isDisplay: true,
+    },
+    {
+      key: "contact_person",
+      sortable: true,
+      isDisplay: true,
+    },
+    {
+      key: "address",
+      sortable: true,
+      isDisplay: true,
+    },
+    {
+      key: "type",
+      isDisplay: true,
+    },
+  ],
+  refreshTableData: Math.random(),
+});
+
+const hasPermission = (permission) => {
+  return props.auth.permissions.includes(permission);
+};
+
+const deleteUser = (userId, name) => {
+  const message = "Are you sure you want to delete the selected user `" + name + "` ?";
+
+  confirmDialogBox(message, () => {
+    router.post(
+      route("users.delete", userId),
+      {},
+      {
+        onSuccess: () => router.get(route("users.index")),
+      }
+    );
+  });
+};
+
+// ✅ Get initials from all words
+const getInitials = (name) => {
+  if (!name) return "";
+  return name
+    .split(" ") // split by space
+    .filter(Boolean) // remove empty values
+    .map((word) => word[0]) // take first letter of each word
+    .join("")
+    .toUpperCase(); // uppercase initials
+};
+
+const updateStatus = (clientId) => {
+  if (!hasPermission("UPDATE_CLIENTS")) {
+    showErrorNotification("you are not authorized for this action");
+    return;
+  }
+  router.post(
+    route("clients.status", clientId),
+    {},
+    {
+      onSuccess: () => router.get(route("clients.index")),
+    }
+  );
+};
+</script>

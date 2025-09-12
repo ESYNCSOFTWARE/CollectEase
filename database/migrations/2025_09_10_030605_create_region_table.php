@@ -11,12 +11,12 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('regions', function (Blueprint $table) {
-            $table->bigIncrements('id'); // BIGINT AUTO_INCREMENT PRIMARY KEY
-            $table->string('name', 100)->unique(); // VARCHAR(100) NOT NULL UNIQUE
-            $table->string('code', 10)->unique()->nullable(); // VARCHAR(10) UNIQUE (optional, so nullable)
-            $table->boolean('status')->default(1); // TINYINT(1) DEFAULT 1
-            $table->timestamp('created_at')->useCurrent(); // TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate(); // TIMESTAMP ON UPDATE
+            $table->bigIncrements('id');
+            $table->string('name', 100)->unique();
+            $table->string('code', 10)->unique()->nullable();
+            $table->boolean('status')->default(1);
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate(); 
         });
     }
 
