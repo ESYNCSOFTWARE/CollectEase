@@ -247,7 +247,7 @@ const statusForm = useForm({
   description: null,
   color: null,
   sort_order: null,
-  is_default: false,
+  is_default: true,
   role_ids: [], // send pivot data to backend
 });
 

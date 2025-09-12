@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-3">
+    <div>
         <Tippy
             :content="title"
             tag="label"
@@ -7,7 +7,7 @@
             :class="labelClass"
         >
             {{ inputLabel }}
-            <span v-if="required" class="text-danger">*</span>
+            <span v-if="required" class="text-red-400">*</span>
             <Info
                 v-if="title"
                 class="ml-2 inline-block text-cyan-400"
@@ -19,7 +19,7 @@
             :id="validationFieldName ?? inputName"
             :value="inputValue"
             :rows="rows"
-            class="dark:disabled:bg-darkmode-800/50 [&amp;[readonly]]:bg-slate-100 [&amp;[readonly]]:cursor-not-allowed [&amp;[readonly]]:dark:bg-darkmode-800/50 [&amp;[readonly]]:dark:border-transparent focus:ring-primary focus:border-primary group-[.input-group]:[&amp;:not(:first-child)]:border-l-transparent w-full rounded-md border-slate-200 text-sm shadow-sm transition duration-200 ease-in-out placeholder:text-slate-400/90 focus:border-opacity-40 focus:ring-4 focus:ring-opacity-20 disabled:cursor-not-allowed disabled:bg-slate-100 group-[.input-group]:z-10 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r"
+            class="flex-1 w-full px-4 py-3 border rounded-lg border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all duration-200"
             :placeholder="placeholder ? placeholder : 'Enter ' + inputLabel"
             :name="inputName"
             :required="required"

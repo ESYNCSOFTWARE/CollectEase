@@ -36,7 +36,7 @@ class UserQueries
 
     public function getById(int $userId): User
     {
-        return User::query()->select('id', 'name', 'email', 'status')
+        return User::query()->select('id', 'name', 'email', 'status', 'dashboard_component')
             ->findOrFail($userId);
     }
 

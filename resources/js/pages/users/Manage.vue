@@ -2,24 +2,22 @@
   <Head :title="user ? 'Edit User' : 'Add a new User'" />
 
   <form @submit.prevent="saveUser()">
-    <div class="p-5 bg-white rounded-2xl">
-   
-
+    <div class="p-5 rounded-2xl">
       <div
-        class="flex flex-col items-center border-b border-gray-200 bg-gradient-to-r from-blue-50 to-indigo-50 px-6 py-4 sm:flex-row sm:p-6 rounded-t-2xl"
+        class="flex flex-col items-center border-b border-gray-200 bg-gradient-to-r bg-primary px-8 py-6 sm:flex-row sm:p-6 rounded-t-2xl"
       >
         <div class="flex items-center mr-auto">
-          <div class="p-3 rounded-lg bg-blue-100 mr-4">
-            <UserRoundPlus class="text-primary" />
+          <div class="p-3 rounded-xl bg-white backdrop-blur-sm mr-4">
+            <UserRoundPlus class="text-orange-400" />
           </div>
-          <h2 class="text-xl font-semibold text-gray-800">
+          <h2 class="text-2xl font-bold text-white">
             <span v-if="user">Edit User</span>
             <span v-else>Add user</span>
           </h2>
         </div>
       </div>
 
-      <div class="intro-y box p-5">
+      <div class="intro-y box p-6 bg-white rounded-b-2xl">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
           <!-- Name -->
           <div>
@@ -67,6 +65,18 @@
               :required="true"
             />
           </div>
+          <div>
+            <FormSelectBox
+              v-model:selected-record="userForm.dashboard_component"
+              :records="templates"
+              input-label="Select template"
+              label="name"
+              value-field="id"
+              placeholder="Select Template"
+              validation-field-name="dashboard_component"
+              :required="true"
+            />
+          </div>
         </div>
 
         <div class="mt-5">
@@ -89,7 +99,8 @@ import FormInput from "@commonComponents/FormInput.vue";
 import CancelButton from "@commonComponents/CancelButton.vue";
 import SubmitButton from "@commonComponents/SubmitButton.vue";
 import SecondaryButton from "@commonComponents/SecondaryButton.vue";
-import { UserRoundPlus } from 'lucide-vue-next';
+import FormSelectBox from "@commonComponents/FormSelectBox.vue";
+import { UserRoundPlus } from "lucide-vue-next";
 
 const props = defineProps({
   user: {
@@ -104,11 +115,16 @@ const props = defineProps({
     type: Array,
     default: null,
   },
+  templates: {
+    type: Array,
+    default: null,
+  },
 });
 
 const userForm = useForm({
   name: null,
   email: null,
+  dashboard_component:null,
 });
 
 const saveUser = () => {

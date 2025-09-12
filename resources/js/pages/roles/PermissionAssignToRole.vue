@@ -36,8 +36,7 @@ const state = reactive({
 });
 
 const updateRolePemission = (permissionId, event) => {
-  console.log(event.target.checked);
-  const params = {
+   const params = {
     permission_id: permissionId,
     is_permission: event.target.checked,
     role_id: props.role.id,
@@ -116,24 +115,24 @@ onMounted(() => {
 
   <form @submit.prevent="savePermissionToRole()">
     <main class="pt-5 sm:pt-8 px-4 sm:px-6 pb-24 sm:pb-8">
-      <div class="p-5 bg-white rounded-2xl">
+      <div class="p-6 rounded-2xl">
       
 
         <div
-        class="flex flex-col items-center border-b border-gray-200 bg-gradient-to-r from-blue-50 to-indigo-50 px-6 py-4 sm:flex-row sm:p-6 rounded-t-2xl"
+        class="flex flex-col items-center border-b border-gray-200 bg-gradient-to-r bg-primary px-8 py-6 sm:flex-row sm:p-6 rounded-t-2xl"
       >
         <div class="flex items-center mr-auto">
-          <div class="p-3 rounded-lg bg-blue-100 mr-4">
-           <Fingerprint class="text-primary" />
+          <div class="p-3 rounded-xl bg-white backdrop-blur-sm mr-4">
+           <Fingerprint class="text-orange-400" />
           </div>
-          <h2 class="text-xl font-semibold text-gray-800">
+          <h2 class="text-2xl font-bold text-white">
             <span > Assign permission to role</span>
           </h2>
         </div>
       </div>
 
         <!-- Content -->
-        <div class="intro-y box p-5">
+        <div class="intro-y box p-6 bg-white rounded-b-2xl">
           <div class="flex flex-col sm:flex-row sm:gap-6">
             <!-- JTable -->
             <div class="w-full sm:w-1/2 overflow-x-auto mb-4 sm:mb-0">
@@ -145,7 +144,7 @@ onMounted(() => {
               >
                 <template #action="data">
                   <FormSwitch
-                    :input-value="data.item?.has_permission"
+                    :input-value="data.item?.has_permission === 1"
                     @input="updateRolePemission(data.item.id, $event)"
                   />
                 </template>

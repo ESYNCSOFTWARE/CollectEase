@@ -4,22 +4,22 @@
   />
 
   <form @submit.prevent="savePermissionGroups()">
-    <div class="p-5 bg-white rounded-2xl">
+    <div class="p-6 rounded-2xl">
       <div
-        class="flex flex-col items-center border-b border-gray-200 bg-gradient-to-r from-blue-50 to-indigo-50 px-6 py-4 sm:flex-row sm:p-6 rounded-t-2xl"
+        class="flex flex-col items-center border-b border-gray-200 bg-gradient-to-r bg-primary px-8 py-6 sm:flex-row sm:p-6 rounded-t-2xl"
       >
         <div class="flex items-center mr-auto">
-          <div class="p-3 rounded-lg bg-blue-100 mr-4">
-            <Fingerprint class="text-primary" />
+          <div class="p-3 rounded-xl bg-white backdrop-blur-sm mr-4">
+            <Fingerprint class="text-orange-400" />
           </div>
-          <h2 class="text-xl font-semibold text-gray-800">
+          <h2 class="text-2xl font-bold text-white">
             <span v-if="permission_groups">Edit Permission Group</span>
             <span v-else>Add Permission Group</span>
           </h2>
         </div>
       </div>
 
-      <div class="intro-y box p-4 sm:p-5">
+      <div class="intro-y box p-6 bg-white rounded-b-2xl">
         <!-- Form Grid -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
           <div>

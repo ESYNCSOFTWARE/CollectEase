@@ -27,7 +27,7 @@ class RoleQueries
             ->when($filterData['search_text'], function ($query) use ($filterData): void {
                 $query->where(function ($query) use ($filterData): void {
                     $query
-                        ->whereAny(['name'], 'LIKE', '%'.$filterData['search_text'].'%');
+                        ->whereAny(['name'], 'LIKE', '%' . $filterData['search_text'] . '%');
                 });
             })
             ->when($filterData['sort_by'], function ($query) use ($filterData): void {
@@ -99,11 +99,16 @@ class RoleQueries
                 $query->whereHas('roles', function ($query) use ($filterData): void {
                     $query->where('id', $filterData['role_id']);
                 });
-                $query->selectRaw(' 1 as has_permission');
+                $query->selectRaw('1 as has_permission');
             })
             ->when($filterData['search_text'], function ($query) use ($filterData): void {
-                $query->where('name', 'LIKE', '%'.$filterData['search_text'].'%');
-                $query->orwhere('display_name', 'LIKE', '%'.$filterData['search_text'].'%');
+                $query->where(function ($q) use ($filterData) {
+                    $q->where('name', 'LIKE', '%' . $filterData['search_text'] . '%')
+                        ->orWhere('display_name', 'LIKE', '%' . $filterData['search_text'] . '%');
+                });
+                $query->whereDoesntHave('roles', function ($query) use ($filterData) {
+                    $query->where('id', $filterData['role_id']);
+                });
             })
             ->when($filterData['sort_by'], function ($query) use ($filterData): void {
                 $query->orderBy($filterData['sort_by'], $filterData['sort_direction'] ?? 'asc');
@@ -162,6 +167,7 @@ class RoleQueries
         $permissions = $role->permissions()->with('permissionGroups')->get();
 
         return $permissions->flatMap(function ($permission) {
+            /** @var Permission $permission */
             return $permission->permissionGroups;
         })->unique('id')->values()->map(function ($group): array {
             return [

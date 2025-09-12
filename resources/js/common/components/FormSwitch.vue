@@ -1,49 +1,56 @@
 <template>
   <div class="form-group mt-3">
-    <label class="relative inline-flex cursor-pointer items-center">
+    <label
+      class="relative inline-flex items-center"
+      :class="{ 'cursor-not-allowed opacity-70': isReadOnly || disabled }"
+    >
+      <!-- Hidden checkbox bound to modelValue -->
       <input
         type="checkbox"
-        :value="state.modelValue"
         class="peer sr-only"
-        :checked="inputValue"
-        @input="updateInput"
-        :disabled="disabled"
+        v-model="modelValue"
+        :disabled="disabled || isReadOnly"
       />
-      <!-- Small Toggle -->
+
+      <!-- Visible toggle -->
       <div
-        @click="toggle"
-        class="h-4 w-8 rounded-full bg-gray-200 relative after:absolute after:top-0.5 after:left-0.5 after:h-3 after:w-3 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-green-600 peer-checked:after:translate-x-4 peer-checked:after:border-white"
+        class="h-8 w-14 rounded-full bg-gray-200 relative 
+               after:absolute after:top-1 after:left-1 
+               after:h-6 after:w-6 after:rounded-full 
+               after:border after:border-gray-300 cursor-pointer
+               after:bg-white after:transition-all after:content-[''] 
+               peer-checked:bg-green-600 peer-checked:after:translate-x-6 peer-checked:after:border-white"
       ></div>
-      <span class="ml-2 text-sm">{{ label }}</span>
+
+      <span class="ml-3 text-base">{{ label }}</span>
     </label>
   </div>
 </template>
 
 <script setup>
-import { reactive } from "vue";
+import { ref, watch } from "vue";
 
 const props = defineProps({
-  inputValue: [Boolean, Number],
+  inputValue: { type: Boolean, default: false },
   label: String,
-  valueType: String,
   isReadOnly: { type: Boolean, default: false },
-  activeClass: String,
-  switchClass: String,
-  required: Boolean,
   disabled: { type: Boolean, default: false },
 });
 
-const state = reactive({
-  modelValue: props.inputValue,
-});
-
-const toggle = () => {
-  state.modelValue = !state.modelValue;
-};
-
 const emits = defineEmits(["update:input-value"]);
 
-const updateInput = () => {
-  emits("update:input-value", state.modelValue);
-};
+const modelValue = ref(props.inputValue);
+
+// Sync prop changes
+watch(
+  () => props.inputValue,
+  (val) => {
+    modelValue.value = val;
+  }
+);
+
+// Emit value on change
+watch(modelValue, (val) => {
+  emits("update:input-value", val);
+});
 </script>

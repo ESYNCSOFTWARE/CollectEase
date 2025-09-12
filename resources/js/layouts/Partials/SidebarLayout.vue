@@ -254,7 +254,7 @@ watch(
 <style scoped>
 /* Desktop sidebar same as before */
 #sidebar {
-  width: 220px;
+  width: 300px;
   transition: width 0.3s ease;
   background: #111827;
   color: #fff;

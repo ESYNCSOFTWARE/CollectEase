@@ -89,19 +89,16 @@ class RegionController extends Controller
         return $regionService->getCommonRecords();
     }
 
-
-
     public function unauthorize()
     {
         return Inertia::render('Auth/Unauthorize');
     }
 
 
-
     public function status(int $regionId): RedirectResponse
     {
         $this->regionQueries->status($regionId);
 
-        return to_route('region.index')->with('success', 'The region status has been updated successfully.');
+        return to_route('regions.index')->with('success', 'The region status has been updated successfully.');
     }
 }

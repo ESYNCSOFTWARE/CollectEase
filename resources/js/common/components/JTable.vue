@@ -288,7 +288,7 @@ const props = defineProps({
     default: null,
   },
   roleId: {
-    type: [String,Number],
+    type: String,
     default: "",
   },
 });

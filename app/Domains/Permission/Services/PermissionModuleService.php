@@ -25,12 +25,27 @@ class PermissionModuleService
                     PermissionList::VIEW->value,
                 ],
             ],
-            'setup' => [
+            'setups' => [
+                'permissions' => [
+                    PermissionList::VIEW->value,
+                ],
+            ],
+            'assignment_management' => [
+                'permissions' => [
+                    PermissionList::VIEW->value,
+                ],
+            ],
+            'reports' => [
                 'permissions' => [
                     PermissionList::VIEW->value,
                 ],
             ],
             'settings' => [
+                'permissions' => [
+                    PermissionList::VIEW->value,
+                ],
+            ],
+            'helps' => [
                 'permissions' => [
                     PermissionList::VIEW->value,
                 ],
@@ -83,7 +98,15 @@ class PermissionModuleService
                     PermissionList::DELETE->value,
                 ],
             ],
-            'configs' => [
+            // 'configs' => [
+            //     'permissions' => [
+            //         PermissionList::VIEW->value,
+            //         PermissionList::CREATE->value,
+            //         PermissionList::UPDATE->value,
+            //         PermissionList::DELETE->value,
+            //     ],
+            // ],
+            'clients' => [
                 'permissions' => [
                     PermissionList::VIEW->value,
                     PermissionList::CREATE->value,
@@ -121,8 +144,8 @@ class PermissionModuleService
 
         foreach ($permissions as $permission) {
             $data = [
-                'name' => $permission.'_'.Str::upper(Str::replace(' ', '_', $moduleName)),
-                'display_name' => Str::title($permission).' '.$moduleName,
+                'name' => $permission . '_' . Str::upper(Str::replace(' ', '_', $moduleName)),
+                'display_name' => Str::title($permission) . ' ' . $moduleName,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ];

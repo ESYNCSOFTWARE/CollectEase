@@ -29,6 +29,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'status',
         'email_verified_at',
+        'dashboard_component',
     ];
 
     /**

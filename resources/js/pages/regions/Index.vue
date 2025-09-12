@@ -11,11 +11,6 @@
             </Link>
         </template>
 
-        <template #profile_image="data">
-            <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-bold">
-          {{ getInitials(data.item.name) }}
-        </div>
-        </template>
 
         <template #status="data">
             <TableStatus :status="data.item.status" @update:status="updateStatus(data.item.id)" />
@@ -109,20 +104,9 @@ const deleteRegion = (regionId, name) => {
     });
 };
 
-// ✅ Get initials from all words
-const getInitials = (name) => {
-  if (!name) return '';
-  return name
-    .split(' ')           // split by space
-    .filter(Boolean)      // remove empty values
-    .map(word => word[0]) // take first letter of each word
-    .join('')
-    .toUpperCase();       // uppercase initials
-};
-
 
 const updateStatus = (regionId) => {
-    if (!hasPermission('UPDATE_RESIONS')) {
+    if (!hasPermission('UPDATE_REGIONS')) {
         showErrorNotification('you are not authorized for this action');
         return;
     }

@@ -1,21 +1,21 @@
 <template>
   <Head title="Assign permission to group" />
   <form @submit.prevent="savePermission()">
-    <div class="p-5 bg-white rounded-2xl">
+    <div class="p-6 rounded-2xl w-full">
       <div
-        class="flex flex-col items-center border-b border-gray-200 bg-gradient-to-r from-blue-50 to-indigo-50 px-6 py-4 sm:flex-row sm:p-6 rounded-t-2xl"
+        class="flex flex-col items-center border-b border-gray-200 bg-gradient-to-r bg-primary px-8 py-6 sm:flex-row sm:p-6 rounded-t-2xl"
       >
         <div class="flex items-center mr-auto">
           <div class="p-3 rounded-lg bg-blue-100 mr-4">
-            <Fingerprint class="text-primary" />
+            <Fingerprint class="text-orange-400" />
           </div>
-          <h2 class="text-xl font-semibold text-gray-800">
+          <h2 class="text-2xl font-bold text-white">
             <span >Assign permission to group</span>
           </h2>
         </div>
       </div>
-      <div class="intro-y box p-4 sm:p-5">
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+      <div class="intro-y box p-6 bg-white rounded-b-2xl">
+        <div class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
           <div>
             <FormInput
               v-model:input-value="permissionForm.name"
@@ -41,12 +41,12 @@
         </div>
 
         <div
-          class="mt-5"
+          class="mt-8 flex flex-wrap"
         >
           <Link :href="route('permission_groups.index')">
-            <CancelButton class="w-full sm:w-auto" />
+            <CancelButton class="rounded-xl py-3   transition-all duration-300 hover:shadow-md" />
           </Link>
-          <SubmitButton type="submit" :text="'Submit'" class="w-full sm:w-24" />
+          <SubmitButton type="submit" :text="'Submit'" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-700 text-white transition-all duration-300 hover:shadow-lg hover:from-blue-700 hover:to-indigo-800"  />
         </div>
       </div>
     </div>
