@@ -8,7 +8,8 @@ import {
     EyeOff,
     NotebookTabs,
     HandCoins,
-    PhoneCall
+    PhoneCall,
+    MapPinned
 } from "lucide-vue-next";
 
 const menuItems = [
@@ -24,7 +25,7 @@ const menuItems = [
         key: "setup",
         icon: UserCog,
         route: "setup",
-        permission: "VIEW_SETUP",
+        permission: "VIEW_SETUPS",
         subMenu: [
             {
                 name: "Users",
@@ -38,7 +39,7 @@ const menuItems = [
                 key: "regions",
                 route: "regions.index",
                 permission: "VIEW_REGIONS",
-                icon: Grid,
+                icon: MapPinned,
             },
         ],
     },
