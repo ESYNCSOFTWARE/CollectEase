@@ -2,14 +2,15 @@ import {
     Boxes,
     House,
     List,
-    UserCog,
+    Settings,
     Users,
     Grid,
     EyeOff,
     NotebookTabs,
     HandCoins,
     PhoneCall,
-    MapPinned
+    MapPinned,
+    Landmark
 } from "lucide-vue-next";
 
 const menuItems = [
@@ -20,29 +21,7 @@ const menuItems = [
         route: "dashboard",
         permission: "VIEW_DASHBOARD",
     },
-        {
-        name: "Setup",
-        key: "setup",
-        icon: UserCog,
-        route: "setup",
-        permission: "VIEW_SETUPS",
-        subMenu: [
-            {
-                name: "Users",
-                key: "users",
-                route: "users.index",
-                permission: "VIEW_USERS",
-                icon: Users,
-            },
-            {
-                name: "Regions",
-                key: "regions",
-                route: "regions.index",
-                permission: "VIEW_REGIONS",
-                icon: MapPinned,
-            },
-        ],
-    },
+
     {
         name: "Assignment Management",
         key: "assignment-management",
@@ -50,13 +29,7 @@ const menuItems = [
         route: "assignment-management",
         permission: "VIEW_ASSIGNMENT_MANAGEMENT",
         subMenu: [
-            {
-                name: "All Cases",
-                key: "cases",
-                route: "users.index",
-                permission: "VIEW_CASES",
-                icon: HandCoins,
-            },
+          
         ],
     },
     {
@@ -86,6 +59,36 @@ const menuItems = [
                 route: "permissions.index",
                 permission: "VIEW_PERMISSIONS",
                 icon: List,
+            },
+        ],
+    },
+            {
+        name: "Setup",
+        key: "setup",
+        icon: Settings,
+        route: "setup",
+        permission: "VIEW_SETUPS",
+        subMenu: [
+            {
+                name: "Users",
+                key: "users",
+                route: "users.index",
+                permission: "VIEW_USERS",
+                icon: Users,
+            },
+            {
+                name: "Regions",
+                key: "regions",
+                route: "regions.index",
+                permission: "VIEW_REGIONS",
+                icon: MapPinned,
+            },
+            {
+                name: "Clients",
+                key: "clients",
+                route: "clients.index",
+                permission: "VIEW_REGIONS",
+                icon: Landmark,
             },
         ],
     },

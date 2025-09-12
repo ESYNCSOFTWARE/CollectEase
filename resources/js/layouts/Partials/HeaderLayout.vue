@@ -53,7 +53,7 @@ const logout = (close) => {
         >
           {{ currentRoute }}
         </span>
-        <ol class="hidden md:flex items-center gap-4 mt-2">
+        <ol class="hidden md:flex items-center mt-2">
           <li class="flex items-center text-sm font-medium opacity-60">
             <svg class="mr-2.5 h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
               <path

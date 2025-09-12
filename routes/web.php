@@ -8,6 +8,7 @@ use App\Domains\Role\Controllers\RoleController;
 use App\Domains\User\Controllers\ProfileController;
 use App\Domains\User\Controllers\UserController;
 use App\Domains\Region\Controllers\RegionController;
+use App\Domains\Client\Controllers\ClientController;
 use App\Domains\User\Middleware\AccessControl;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -86,6 +87,17 @@ Route::middleware('auth:sanctum')->group(function (): void {
         Route::get('permissions/{permissionId}/edit', 'edit')->name('edit')->middleware(AccessControl::class.':UPDATE_PERMISSIONS');
         Route::put('permissions/{permissionId}/update', 'update')->name('update')->middleware(AccessControl::class.':UPDATE_PERMISSIONS');
         Route::post('permissions/{permissionId}/delete', 'delete')->name('delete')->middleware(AccessControl::class.':UPDATE_PERMISSIONS');
+    });
+
+       Route::controller(ClientController::class)->name('clients.')->group(function (): void {
+        Route::get('clients', 'index')->name('index')->middleware(AccessControl::class.':VIEW_CLIENTS');
+        Route::get('fetch-clients', 'fetchClients')->name('fetch')->middleware(AccessControl::class.':VIEW_CLIENTS');
+        Route::get('clients/create', 'create')->name('create')->middleware(AccessControl::class.':CREATE_CLIENTS');
+        Route::post('clients', 'store')->name('store')->middleware(AccessControl::class.':CREATE_CLIENTS');
+        Route::get('clients/{clientId}/edit', 'edit')->name('edit')->middleware(AccessControl::class.':UPDATE_CLIENTS');
+        Route::put('clients/{clientId}/update', 'update')->name('update')->middleware(AccessControl::class.':UPDATE_CLIENTS');
+        Route::post('clients/{clientId}/delete', 'delete')->name('delete')->middleware(AccessControl::class.':DELETE_CLIENTS');
+        Route::post('clients/{clientId}/status', 'status')->name('status')->middleware(AccessControl::class.':UPDATE_CLIENTS');
     });
 
 });
