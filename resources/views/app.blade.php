@@ -20,6 +20,6 @@ declare(strict_types=1);
     <body class="p-5 bg-setupListBg h-screen">
         @inertia
     </body>
-  
+
 </html>
 <?php 
