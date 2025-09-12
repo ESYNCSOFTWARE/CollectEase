@@ -7,6 +7,7 @@ use App\Domains\Permission\Controllers\PermissionGroupController;
 use App\Domains\Role\Controllers\RoleController;
 use App\Domains\User\Controllers\ProfileController;
 use App\Domains\User\Controllers\UserController;
+use App\Domains\Region\Controllers\RegionController;
 use App\Domains\User\Middleware\AccessControl;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -37,6 +38,17 @@ Route::middleware('auth:sanctum')->group(function (): void {
         Route::post('users/{userId}/delete', 'delete')->name('delete')->middleware(AccessControl::class.':DELETE_USERS');
         Route::post('users/{userId}/status', 'status')->name('status')->middleware(AccessControl::class.':UPDATE_USERS');
         Route::get('unauthorize', 'unauthorize')->name('unauthorize.index');
+    });
+
+     Route::controller(RegionController::class)->name('regions.')->group(function (): void {
+        Route::get('regions', 'index')->name('index')->middleware(AccessControl::class.':VIEW_REGIONS');
+        Route::get('fetch-regions', 'fetchRegions')->name('fetch')->middleware(AccessControl::class.':VIEW_REGIONS');
+        Route::get('regions/create', 'create')->name('create')->middleware(AccessControl::class.':CREATE_REGIONS');
+        Route::post('regions', 'store')->name('store')->middleware(AccessControl::class.':CREATE_REGIONS');
+        Route::get('regions/{regionId}/edit', 'edit')->name('edit')->middleware(AccessControl::class.':UPDATE_REGIONS');
+        Route::put('regions/{regionId}/update', 'update')->name('update')->middleware(AccessControl::class.':UPDATE_REGIONS');
+        Route::post('regions/{regionId}/delete', 'delete')->name('delete')->middleware(AccessControl::class.':DELETE_REGIONS');
+        Route::post('regions/{regionId}/status', 'status')->name('status')->middleware(AccessControl::class.':UPDATE_REGIONS');
     });
 
     Route::controller(RoleController::class)->name('roles.')->group(function (): void {
