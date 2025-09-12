@@ -10,6 +10,8 @@ enum DashBoardTemplate: string
 {
     use PrepareEnumDataMethods;
 
-    case DEFAULT = 'DefaultDashboard';
+    case DEFAULT_DASHBOARD = 'DefaultDashboard';
+    case SUPER_ADMIN_DASHBOARD='SuperAdminDashboard';
+    case AGENT_DASHBOARD='AgentDashboard';
 
 }
