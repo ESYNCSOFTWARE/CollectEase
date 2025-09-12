@@ -54,17 +54,6 @@
         >
           <DeleteIcon />
         </span>
-        <Link
-          class="mr-3 flex items-center"
-          v-if="hasPermission('UPDATE_STATUSES')"
-          :href="route('statuses.create.status.to.role', data.item.id)"
-        >
-          <Settings2 />
-        </Link>
-        <!--Link class="mr-3 flex items-center" v-if="hasPermission('UPDATE_ROLES')" :href="route('roles.create.permission.to.role', data.item.id)
-                    ">
-                <Settings2 />
-                </Link-->
       </div>
     </template>
   </JTable>

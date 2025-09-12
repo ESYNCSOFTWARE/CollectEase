@@ -7,6 +7,8 @@ namespace App\Domains\Status;
 use App\Domains\Status\DataObjects\StatusData;
 use App\Domains\Status\Models\Status;
 use Illuminate\Pagination\LengthAwarePaginator;
+use App\Domains\Role\Models\Role;
+
 
 class StatusQueries
 {
@@ -32,24 +34,42 @@ class StatusQueries
             ->paginate($filterData['per_page']);
     }
 
-    public function addNew(StatusData $statusData): Status
+    public function addNew(StatusData $statusData, array $roleData = []): Status
     {
         $data = $statusData->all();
         $data['is_default'] = true;
 
-        return Status::query()->create($data);
+        $status = Status::query()->create($data);
+
+        if (!empty($roleData)) {
+            $status->roles()->attach($roleData);
+        }
+
+        return $status;
     }
 
     public function getById(int $statusId): Status
     {
-        return Status::query()->select('id', 'name', 'type', 'code', 'description', 'color', 'is_default', 'sort_order')
+        return Status::query()
+            ->select('id', 'name', 'type', 'code', 'description', 'color', 'is_default', 'sort_order')
+            ->with([
+                'roles' => function ($query) {
+                    $query->select('roles.id', 'roles.name')
+                        ->withPivot(['can_view', 'can_update']);
+                }
+            ])
             ->findOrFail($statusId);
     }
 
-    public function update(StatusData $statusData, Status $status): void
+    public function update(StatusData $statusData, Status $status, array $roleData = []): Status
     {
-        $statusDetails = $statusData->toArray();
-        $status->update($statusDetails);
+        $status->update($statusData->all());
+
+        if (!empty($roleData)) {
+            $status->roles()->sync($roleData);
+        }
+
+        return $status;
     }
 
     public function delete(int $statusId): void

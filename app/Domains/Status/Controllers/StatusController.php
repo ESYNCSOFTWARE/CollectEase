@@ -8,6 +8,7 @@ use App\Domains\Status\DataObjects\StatusData;
 use App\Domains\Status\Resources\StatusListResource;
 use App\Domains\Status\Services\StatusService;
 use App\Domains\Status\StatusQueries;
+use App\Domains\Role\RoleQueries;
 use App\Http\Controllers\Controller;
 use Exception;
 use Illuminate\Http\RedirectResponse;
@@ -47,31 +48,75 @@ class StatusController extends Controller
 
     public function create(): Response
     {
-
-        return Inertia::render('statuses/Manage');
-    }
-
-    public function store(StatusData $statusData): RedirectResponse
-    {
-        $this->statusQueries->addNew($statusData);
-
-        return to_route('statuses.index')->with('success', 'The status has been added successfully.');
-    }
-
-    public function edit(int $statusId): Response
-    {
+        $roleQueries = App::make(RoleQueries::class);
         return Inertia::render('statuses/Manage', [
-            'status' => $this->statusQueries->getById($statusId),
+            'roles' => $roleQueries->roleList(),
         ]);
     }
 
-    public function update(StatusData $statusData, int $statusId): RedirectResponse
+    public function store(Request $request, StatusData $statusData): RedirectResponse
     {
-        $statusId = $this->statusQueries->getById($statusId);
-        $this->statusQueries->update($statusData, $statusId);
+        $roles = collect($request->input('role_ids', []))
+            ->mapWithKeys(function ($role) {
+                if (is_array($role)) {
+                    return [
+                        $role['id'] => [
+                            'can_view' => $role['can_view'] ?? false,
+                            'can_update' => $role['can_update'] ?? false,
+                        ],
+                    ];
+                }
 
-        return to_route('statuses.index')->with('success', 'The status has been updated successfully.');
+                return [
+                    $role => [
+                        'can_view' => false,
+                        'can_update' => false,
+                    ],
+                ];
+            })
+            ->all();
+
+        $status = $this->statusQueries->addNew($statusData, $roles);
+
+        return to_route('statuses.index', [$status->load('roles')])
+            ->with('success', 'The status has been added successfully.');
     }
+
+
+    public function edit(int $statusId): Response
+    {
+        $status = $this->statusQueries->getById($statusId);
+
+        $status->load('roles');
+        $roleQueries = App::make(RoleQueries::class);
+
+        return Inertia::render('statuses/Manage', [
+            'status' => $status,
+            'roles' => $roleQueries->roleList(),
+        ]);
+    }
+
+
+
+    public function update(Request $request, StatusData $statusData, int $statusId)
+    {
+        $status = $this->statusQueries->getById($statusId);
+
+        $roleData = collect($request->input('role_ids', []))->mapWithKeys(function ($role) {
+            $id = is_array($role) ? $role['id'] : $role;
+            $pivot = [
+                'can_view' => isset($role['can_view']) ? (bool) $role['can_view'] : false,
+                'can_update' => isset($role['can_update']) ? (bool) $role['can_update'] : false,
+            ];
+            return [$id => $pivot];
+        })->all();
+
+        $this->statusQueries->update($statusData, $status, $roleData);
+
+        return to_route('statuses.index')
+            ->with('success', 'The status has been updated successfully.');
+    }
+
 
     public function delete(int $statusId)
     {
