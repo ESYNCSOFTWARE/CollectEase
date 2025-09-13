@@ -87,7 +87,7 @@ const menuItems = [
                 name: "Clients",
                 key: "clients",
                 route: "clients.index",
-                permission: "VIEW_REGIONS",
+                permission: "VIEW_CLIENTS",
                 icon: Landmark,
             },
         ],
