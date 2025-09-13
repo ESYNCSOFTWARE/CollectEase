@@ -5,6 +5,7 @@ import {
     Settings,
     Users,
     Grid,
+    Blocks,
     EyeOff,
     NotebookTabs,
     HandCoins,
@@ -82,6 +83,13 @@ const menuItems = [
                 route: "regions.index",
                 permission: "VIEW_REGIONS",
                 icon: MapPinned,
+            },
+            {
+                name: "Statuses",
+                key: "statuses",
+                route: "statuses.index",
+                permission: "VIEW_STATUSES",
+                icon: Blocks,
             },
             {
                 name: "Clients",
