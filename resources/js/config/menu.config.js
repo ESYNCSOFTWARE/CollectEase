@@ -4,12 +4,9 @@ import {
     List,
     Settings,
     Users,
-    Grid,
-    Blocks,
+    CircleCheck,
     EyeOff,
     NotebookTabs,
-    HandCoins,
-    PhoneCall,
     MapPinned,
     Landmark
 } from "lucide-vue-next";
@@ -89,7 +86,7 @@ const menuItems = [
                 key: "statuses",
                 route: "statuses.index",
                 permission: "VIEW_STATUSES",
-                icon: Blocks,
+                icon: CircleCheck,
             },
             {
                 name: "Clients",

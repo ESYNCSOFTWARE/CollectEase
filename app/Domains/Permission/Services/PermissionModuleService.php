@@ -74,6 +74,14 @@ class PermissionModuleService
                     PermissionList::DELETE->value,
                 ],
             ],
+            'role_statuses' => [
+                'permissions' => [
+                    PermissionList::VIEW->value,
+                    PermissionList::CREATE->value,
+                    PermissionList::UPDATE->value,
+                    PermissionList::DELETE->value,
+                ],
+            ],
             'permission_groups' => [
                 'permissions' => [
                     PermissionList::VIEW->value,

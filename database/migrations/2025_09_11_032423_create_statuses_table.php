@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('statuses', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name',length:50);
-            $table->enum('type', ['case', 'assignment']);
+            $table->enum('type', ['Case', 'Assignment']);
             $table->string('code',length:20);
-            $table->text('description');
+            $table->string('description');
             $table->string('color',length:7);
             $table->tinyInteger('sort_order');
             $table->boolean('is_default')->default(0);

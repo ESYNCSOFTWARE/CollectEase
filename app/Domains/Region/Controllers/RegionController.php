@@ -82,18 +82,6 @@ class RegionController extends Controller
         return to_route('regions.index')->with('success', 'The region has been deleted successfully.');
     }
 
-    public function getCommonResources(): array
-    {
-        $regionService = App::make(RegionService::class);
-
-        return $regionService->getCommonRecords();
-    }
-
-    public function unauthorize()
-    {
-        return Inertia::render('Auth/Unauthorize');
-    }
-
 
     public function status(int $regionId): RedirectResponse
     {

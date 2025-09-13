@@ -6,6 +6,7 @@ namespace App\Domains\Status\DataObjects;
 
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use App\Domains\Status\Enums\StatusType;
 use Spatie\LaravelData\Data;
 
 class StatusData extends Data
@@ -37,7 +38,7 @@ class StatusData extends Data
             ],
             'type' => [
                 'required',
-                'in:case,assignment',
+                'in:'.StatusType::getValues(),
             ],
             'code' => [
                 'required',

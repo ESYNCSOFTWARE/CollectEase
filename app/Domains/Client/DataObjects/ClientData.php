@@ -7,6 +7,8 @@ namespace App\Domains\Client\DataObjects;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Spatie\LaravelData\Data;
+use App\Domains\Client\Enums\ClientType;
+
 
 class ClientData extends Data
 {
@@ -45,7 +47,7 @@ class ClientData extends Data
             ],
             'type' => [
                 'required',
-                'string',
+                'in:'.ClientType::getValues(),
                 'max:40',
             ],
             'contact_person' => [

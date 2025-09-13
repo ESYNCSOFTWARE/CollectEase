@@ -9,6 +9,7 @@ use App\Domains\User\Controllers\ProfileController;
 use App\Domains\User\Controllers\UserController;
 use App\Domains\Region\Controllers\RegionController;
 use App\Domains\Client\Controllers\ClientController;
+use App\Domains\RoleStatus\Controllers\RoleStatusController;
 use App\Domains\Status\Controllers\StatusController;
 use App\Domains\User\Middleware\AccessControl;
 use Illuminate\Support\Facades\Route;
@@ -115,6 +116,18 @@ Route::middleware('auth:sanctum')->group(function (): void {
         Route::post('clients/{clientId}/status', 'status')->name('status')->middleware(AccessControl::class . ':UPDATE_CLIENTS');
     });
 
+    Route::controller(RoleStatusController::class)->name('role_statuses.')->group(function (): void {
+        Route::get('role-statuses', 'index')->name('index')->middleware(AccessControl::class . ':VIEW_ROLE_STATUSES');
+        Route::get('fetch-role-statuses', 'fetchRoleStatuses')->name('fetch')->middleware(AccessControl::class . ':VIEW_ROLE_STATUSES');
+        Route::get('role-statuses/create', 'create')->name('create')->middleware(AccessControl::class . ':CREATE_ROLE_STATUSES');
+        Route::post('role-statuses', 'store')->name('store')->middleware(AccessControl::class . ':CREATE_ROLE_STATUSES');
+        Route::get('role-statuses/{roleStatueId}/edit', 'edit')->name('edit')->middleware(AccessControl::class . ':UPDATE_ROLE_STATUSES');
+        Route::put('role-statuses/{roleStatueId}/update', 'update')->name('update')->middleware(AccessControl::class . ':UPDATE_ROLE_STATUSES');
+        Route::post('role-statuses/{roleStatueId}/delete', 'delete')->name('delete')->middleware(AccessControl::class . ':DELETE_CLIENTS');
+        Route::post('role-statuses/{roleStatueId}/can-update', 'canUpdate')->name('canUpdate')->middleware(AccessControl::class . ':UPDATE_ROLE_STATUSES');
+        Route::post('role-statuses/{roleStatueId}/can-view', 'canView')->name('canView')->middleware(AccessControl::class . ':UPDATE_ROLE_STATUSES');
+
+    });
 });
 
 require __DIR__ . '/auth.php';
